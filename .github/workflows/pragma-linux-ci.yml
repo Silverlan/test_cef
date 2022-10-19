@@ -1,0 +1,49 @@
+name: Build Linux
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+concurrency:
+  group: environment-lin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build - ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - os: ubuntu-22.04
+            name: "Ubuntu GCC-11"
+            artifact: "ubuntu_gcc.7z"
+            build_type: "RelWithDebInfo"
+            cc: "clang-14"
+            cxx: "clang++-14"
+            archiver: "7z a"
+            generators: "Unix Makefiles"
+            build_dir: 'build'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Setup
+        id: setup
+        uses: Silverlan/common_actions/setup@main
+        
+      - name: Download
+        shell: bash
+        run: |
+          wget https://cef-builds.spotifycdn.com/cef_binary_106.1.0%2Bg30ad805%2Bchromium-106.0.5249.119_linux64_minimal.tar.bz2
+          tar -xvf cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal.tar.bz2
+        
+      - name: Build
+        shell: bash
+        run: |
+          cd "cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal"
+          cmake -G "Unix Makefiles"
+          cmake --build ./ --verbose
