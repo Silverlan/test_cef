@@ -47,3 +47,9 @@ jobs:
           cd "cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal"
           cmake -G "Unix Makefiles"
           cmake --build ./ --verbose
+        
+      - name: Build2
+        shell: bash
+        run: |
+          cmake -G "Unix Makefiles"
+          cmake --build ./ --verbose
