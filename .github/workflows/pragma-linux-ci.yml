@@ -69,6 +69,8 @@ jobs:
       - name: Copy libs
         shell: bash
         run: |
+          mkdir modules
+          mkdir modules/chromium
           rsync --mkpath ./cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/Release/libcef.so ./modules/chromium/
           rsync --mkpath ./tmp_pr_chromium_wrapper_ci/libpr_chromium_wrapper.so ./modules/chromium/
           rsync --mkpath ./tmp_pr_chromium_wrapper_ci/subprocess/pr_chromium_subprocess ./modules/chromium/
