@@ -34,8 +34,6 @@ endif()
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_options(${PROJ_NAME} PRIVATE -Wno-c++11-narrowing)
 endif()
-target_link_libraries(${PROJ_NAME} "/home/runner/work/test_cef/test_cef/cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/libcef_dll_wrapper.a")
-target_link_libraries(${PROJ_NAME} "/home/runner/work/test_cef/test_cef/cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/Release/libcef.so")
 
 target_include_directories(${PROJ_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(${PROJ_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
