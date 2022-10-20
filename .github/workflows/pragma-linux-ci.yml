@@ -38,6 +38,11 @@ jobs:
       - name: Download
         shell: bash
         run: |
+          git clone https://github.com/Silverlan/tmp_pr_chromium_wrapper_ci.git tmp_pr_chromium_wrapper_ci
+        
+      - name: Download
+        shell: bash
+        run: |
           wget https://cef-builds.spotifycdn.com/cef_binary_106.1.0%2Bg30ad805%2Bchromium-106.0.5249.119_linux64_minimal.tar.bz2
           tar -xvf cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal.tar.bz2
         
@@ -47,9 +52,18 @@ jobs:
           cd "cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal"
           cmake -G "Unix Makefiles"
           cmake --build ./ --verbose
-        
+          
       - name: Build2
+        shell: bash
+        run: |
+          cd tmp_pr_chromium_wrapper_ci
+          cmake -G "Unix Makefiles" -DDEPENDENCY_CHROMIUM_INCLUDE="../cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/" -DDEPENDENCY_CHROMIUM_LIBRARY="../cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/Release/libcef.so" -DDEPENDENCY_LIBCEF_DLL_WRAPPER_LIBRARY="../cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/libcef_dll_wrapper/libcef_dll_wrapper.a" -DDEPENDENCY_PR_CHROMIUM_WRAPPER_LIBRARY="./libpr_chromium_wrapper.so"
+          cmake --build ./ --verbose
+
+      - name: Build3
         shell: bash
         run: |
           cmake -G "Unix Makefiles"
           cmake --build ./ --verbose
+      #- uses: mxschmitt/action-tmate@v3
+      #  name: CI
