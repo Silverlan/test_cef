@@ -70,8 +70,8 @@ jobs:
         shell: bash
         run: |
           rsync --mkpath ./cef_binary_106.1.0+g30ad805+chromium-106.0.5249.119_linux64_minimal/Release/libcef.so ./
-          rsync --mkpath ./libpr_chromium_wrapper.so ./
-          rsync --mkpath ./subprocess/pr_chromium_subprocess ./
+          rsync --mkpath ./tmp_pr_chromium_wrapper_ci/libpr_chromium_wrapper.so ./
+          rsync --mkpath ./tmp_pr_chromium_wrapper_ci/subprocess/pr_chromium_subprocess ./
           
       - uses: mxschmitt/action-tmate@v3
         name: CI
