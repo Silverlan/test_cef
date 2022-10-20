@@ -11,4 +11,5 @@ int main(int argc,char *argv[])
     if(msg)
       std::cout<<"Error: "<<msg<<std::endl;
   }
+  return 0;
 }
