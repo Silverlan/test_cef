@@ -24,7 +24,7 @@ file(GLOB_RECURSE SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/include/*.hpp"
 )
 def_vs_filters("${SRC_FILES}")
-add_library(${PROJ_NAME} ${LIB_TYPE} ${SRC_FILES})
+add_executable(${PROJ_NAME} ${SRC_FILES})
 if(WIN32)
 	target_compile_options(${PROJ_NAME} PRIVATE /wd4251)
 	target_compile_options(${PROJ_NAME} PRIVATE /wd4996)
